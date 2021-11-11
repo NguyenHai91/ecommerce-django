@@ -1,0 +1,109 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+<form action="{% url 'place_order' %}" method="POST"></form>
+<div class="row">
+	<aside class="col-lg-7">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-4">Billing Address</h4>
+        {% csrf_token %}
+
+        <div class="form-row">
+          <div class="col form-group">
+            <label for="first_name">First Name</label>
+            <input class="form-control" type="text" name="first_name" placeholder="first name">
+          </div>
+          <div class="col form-group">
+            <label for="last_name">Last Name</label>
+            <input class="form-control" type="text" name="last_name" placeholder="last name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <label for="">Email</label>
+            <input class="form-control" type="text" name="email" placeholder="email">
+          </div>
+          <div class="col form-group">
+            <label for="">Phone</label>
+            <input class="form-control" type="text" name="phone" placeholder="phone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <label for="">Address 1</label>
+            <input class="form-control" type="text" name="address_1" placeholder="your address 1">
+          </div>
+          <div class="col form-group">
+            <label for="">Address 2</label>
+            <input class="form-control" type="text" name="address_2" placeholder="your address 2">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <label for="">City</label>
+            <input class="form-control" type="text" name="city" placeholder="city">
+          </div>
+          <div class="col form-group">
+            <label for="">Count</label>
+            <input class="form-control" type="text" name="count" placeholder="count">
+          </div>
+          <div class="col form-group">
+            <label for="">Country</label>
+            <input class="form-control" type="text" name="country" placeholder="country">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <label for="note">Note</label>
+            <input class="form-control" type="textarea" name="note" placeholder="note">
+          </div>
+        </div>
+    </div>
+  </div>
+	</aside> <!-- col.// -->
+	<aside class="col-lg-5">
+		<div class="card">
+		<div class="card-body">
+      <h4>Details Order</h4>
+      <table class="table">
+        <thead>
+          <th scope="col">id</th>
+          <th scope="col">item</th>
+          <th scope="col">qty</th>
+          <th scope="col">price</th>
+        </thead>
+        <tbody>
+          {% for cart_item in cart_items %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{cart_item.product.name}}</td>
+            <td>{{cart_item.quantity}}</td>
+            <td>${{cart_item.product.price}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p>Amout: ${{total}}</p>
+      <p>Tax: {{tax}}</p>
+      <p>Total amount: ${{grand_total}}</p>
+
+			<button type="submit" class="btn btn-primary btn-block">Place Order</button>
+			<a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+		</div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+  </aside> <!-- col.// -->
+</div> <!-- row.// -->
+</form>
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock %}
